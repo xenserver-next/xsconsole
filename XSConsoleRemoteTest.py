@@ -13,7 +13,7 @@
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import os, socket, xmlrpclib
+import os, socket
 
 from XSConsoleBases import *
 from XSConsoleImporter import *
@@ -21,8 +21,14 @@ from XSConsoleLang import *
 from XSConsoleLog import *
 from XSConsoleLayout import *
 
-import SocketServer
-import SimpleXMLRPCServer
+try:
+    import SimpleXMLRPCServer
+    import SocketServer
+    import xmlrpclib
+except:
+    import socketserver as SocketServer
+    import xmlrpc.client as xmlrpclib
+    import xmlrpc.server as SimpleXMLRPCServer
 
 class UnixSimpleXMLRPCRequestHandler(SimpleXMLRPCServer.SimpleXMLRPCRequestHandler):
     # Python 2.7's SimpleXMLRPCRequestHandler enables Nagle's algorithm by default
