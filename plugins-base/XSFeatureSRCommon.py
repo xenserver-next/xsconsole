@@ -211,7 +211,7 @@ class SRControlDialogue(Dialogue):
         pane.ResetFields()
 
         sr = HotAccessor().sr[self.srHandle]
-        srName = sr.name_label(None).encode('utf-8')
+        srName = convert_anything_to_str(sr.name_label(None))
         if srName is None:
             pane.AddTitleField(Lang("The Virtual Machine is no longer present"))
         else:
@@ -226,7 +226,7 @@ class SRControlDialogue(Dialogue):
         pane.ResetFields()
 
         sr = HotAccessor().sr[self.srHandle]
-        srName = sr.name_label(None).encode('utf-8')
+        srName = convert_anything_to_str(sr.name_label(None))
         if srName is None:
             pane.AddTitleField(Lang("The Storage Repository is no longer present"))
         else:
@@ -282,8 +282,8 @@ class SRControlDialogue(Dialogue):
         Layout.Inst().PopDialogue()
 
         operationName = SRUtils.OperationName(self.operation)
-        srName = HotAccessor().sr[self.srHandle].name_label(Lang('<Unknown>')).encode('utf-8')
-        messagePrefix = operationName + Lang(' operation on ') + srName + ' '
+        srName = HotAccessor().sr[self.srHandle].name_label(Lang('<Unknown>'))
+        messagePrefix = operationName + Lang(' operation on ') + convert_anything_to_str(srName) + ' '
         Layout.Inst().TransientBanner(messagePrefix+Lang('in progress...'))
         try:
             task = SRUtils.DoOperation(self.operation, self.srHandle, *self.opParams)

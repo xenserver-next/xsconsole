@@ -29,8 +29,8 @@ else:
 
 def convert_anything_to_str(arg):
     """Converts anything into the native "str" type of the Python version, without u'str' or b'str'"""
-    if isinstance(arg, str):
-        return arg  # Already str, return it as-is:
+    if arg is None or isinstance(arg, str):
+        return arg  # Already str or None (checked by some callers), return it as-is:
 
     # If "unicode" text or "bytes", en- or decode accordingly:
     if isinstance(arg, (text_type, bytes)):
